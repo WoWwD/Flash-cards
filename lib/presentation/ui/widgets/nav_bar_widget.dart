@@ -1,6 +1,5 @@
 import 'package:flash_cards/presentation/ui/screens/cards_screen.dart';
-import 'package:flash_cards/presentation/ui/screens/collection_screen.dart';
-import 'package:flash_cards/presentation/ui/screens/settings_screen.dart';
+import 'package:flash_cards/presentation/ui/screens/collections_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavBarWidget extends StatefulWidget {
@@ -36,13 +35,11 @@ class _NavBarWidget extends State<NavBarWidget> {
 
   List<BottomNavigationBarItem> get _items => [
     const BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Карточки'),
-    const BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Коллекции слов'),
-    const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Настройки'),
+    const BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Коллекции карточек'),
   ];
 
   static const List<Widget> _screens = [
     CardsScreen(),
-    CollectionScreen(),
-    SettingsScreen()
+    CollectionsScreen(),
   ];
 }
