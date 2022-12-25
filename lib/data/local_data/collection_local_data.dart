@@ -33,4 +33,29 @@ class CollectionLocalData implements CollectionLocalAction {
     }
     return null;
   }
+
+  @override
+  Future<bool?> collectionNameAlreadyExists(String collectionName) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final List<String>? listKeys = sp.getStringList(_listCollectionsStorage);
+    if (listKeys != null) {
+      return listKeys.contains(collectionName);
+    }
+    return null;
+  }
+
+  @override
+  Future<bool> deleteCollectionByName(String collectionName) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final List<String>? listKeys = sp.getStringList(_listCollectionsStorage);
+    if (listKeys != null && listKeys.contains(collectionName)) {
+      listKeys.remove(collectionName);
+      await sp.remove(collectionName);
+      await sp.setStringList(_listCollectionsStorage, listKeys);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }
