@@ -1,3 +1,4 @@
+import 'package:flash_cards/presentation/provider/collection_cards_model.dart';
 import 'package:flash_cards/presentation/provider/settings_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<SettingsModel>(create: (_) => di.getIt()..getValueTheme()),
+        ChangeNotifierProvider<CollectionCardsModel>(create: (_) => di.getIt())
       ],
       child: const App()
     )

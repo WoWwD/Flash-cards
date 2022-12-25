@@ -35,7 +35,7 @@ class _NavBarWidget extends State<NavBarWidget> {
 
   List<BottomNavigationBarItem> get _items => [
     const BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Карточки'),
-    const BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Коллекции карточек'),
+    const BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Коллекция карточек'),
   ];
 
   static const List<Widget> _screens = [
