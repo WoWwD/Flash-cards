@@ -2,10 +2,10 @@ import 'package:flash_cards/data/model/collection_model.dart';
 import 'package:flutter/cupertino.dart';
 import '../../domain/repositories/local_repositories/collection_local_repository.dart';
 
-class CollectionCardsModel extends ChangeNotifier {
+class CollectionProviderModel extends ChangeNotifier {
   final CollectionLocalRepository collectionLocalRepository;
   
-  CollectionCardsModel({required this.collectionLocalRepository});
+  CollectionProviderModel({required this.collectionLocalRepository});
 
   List<Collection> _listCollections = [];
   List<Collection> get listCollections => _listCollections;

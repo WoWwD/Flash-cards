@@ -1,11 +1,11 @@
-class Card{
+class FlashCard{
   final String word;
   final String translate;
 
-  Card({required this.word, required this.translate});
+  FlashCard({required this.word, required this.translate});
 
-  factory Card.fromJson(Map<String, dynamic> json) {
-    return Card(
+  factory FlashCard.fromJson(Map<String, dynamic> json) {
+    return FlashCard(
       word: json['word'],
       translate: json['translate'],
     );

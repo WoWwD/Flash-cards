@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/constants/app_constants.dart';
 
-class SettingsModel extends ChangeNotifier {
+class SettingsProviderModel extends ChangeNotifier {
   late bool _darkMode;
 
   get darkMode => _darkMode;

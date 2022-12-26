@@ -1,4 +1,5 @@
-import 'package:flash_cards/presentation/provider/collection_cards_model.dart';
+import 'package:flash_cards/presentation/provider/collection_provider_model.dart';
+import 'package:flash_cards/presentation/ui/screens/list_cards_screen.dart';
 import 'package:flash_cards/presentation/ui/widgets/card_collection_widget.dart';
 import 'package:flash_cards/presentation/ui/widgets/create_collection_widget.dart';
 import 'package:flash_cards/presentation/ui/widgets/primary_alert_dialog_widget.dart';
@@ -21,23 +22,23 @@ class CollectionsScreen extends StatelessWidget {
           builder: (context) => const CreateCollection()
         ),
       ),
-      child: Consumer<CollectionCardsModel>(
+      child: Consumer<CollectionProviderModel>(
         builder: (context, model, child) {
           model.getListCollections();
           if (model.listCollections.isEmpty) return _firstCollection();
 
           return ListView.separated(
             itemBuilder: (context, index) => CardCollection(
+              amountCards: model.listCollections[index].listCards.length,
               name: model.listCollections[index].name,
-              onTap: () {},
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ListCardsScreen(nameCollection: model.listCollections[index].name)
+                )
+              ),
               upload: () {},
-              delete: () => showDialog(
-                context: context,
-                builder: (context) => _deleteCollection(
-                  () => model.deleteCollectionByName(model.listCollections[index].name),
-                  context
-                ),
-              )
+              delete: () => _deleteCollection(model, index, context)
             ),
             separatorBuilder: (context, index) => const Divider(height: 1),
             itemCount: model.listCollections.length
@@ -49,23 +50,24 @@ class CollectionsScreen extends StatelessWidget {
 
   Widget _firstCollection() => const Text('Создайте вашу первую коллекцию карточек');
 
-  Widget _deleteCollection(VoidCallback delete, BuildContext context) {
-    return PrimaryAlertDialog(
-      textTitle: 'Удалить коллекцию?',
-      actions: [
-        PrimaryButton(
-          text: 'Да',
-          onPressed: () {
-            delete();
-            Navigator.pop(context);
-          }
-        ),
-        const SizedBox(width: 16),
-        PrimaryButton(
-          text: 'Нет',
-          onPressed: () => Navigator.pop(context)
-        ),
-      ]
+  void _deleteCollection(CollectionProviderModel model, int index, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => PrimaryAlertDialog(
+        textTitle: 'Удалить коллекцию?',
+        actions: [
+          PrimaryButton(
+            text: 'Да',
+            onPressed: () =>  model.deleteCollectionByName(model.listCollections[index].name)
+              .then((value) => Navigator.pop(context))
+          ),
+          const SizedBox(width: 16),
+          PrimaryButton(
+            text: 'Нет',
+            onPressed: () => Navigator.pop(context)
+          ),
+        ]
+      )
     );
   }
 }

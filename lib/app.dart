@@ -1,4 +1,4 @@
-import 'package:flash_cards/presentation/provider/settings_model.dart';
+import 'package:flash_cards/presentation/provider/settings_provider_model.dart';
 import 'package:flash_cards/presentation/ui/widgets/nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +8,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = Provider.of<SettingsModel>(context);
+    final themeMode = Provider.of<SettingsProviderModel>(context);
 
     return MaterialApp(
       theme: ThemeData(brightness: Brightness.light),

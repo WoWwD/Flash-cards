@@ -4,7 +4,7 @@ import 'package:flash_cards/services/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../services/errors/input_errors.dart';
-import '../../provider/collection_cards_model.dart';
+import '../../provider/collection_provider_model.dart';
 
 class CreateCollection extends StatefulWidget {
   const CreateCollection({Key? key}) : super(key: key);
@@ -58,11 +58,11 @@ class _CreateCollectionState extends State<CreateCollection> {
 
   void _createCollection(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      final bool? portfolioAlreadyExists =
-        await context.read<CollectionCardsModel>().collectionNameAlreadyExists(_textEditingController.text);
-      if (portfolioAlreadyExists == null || !portfolioAlreadyExists) {
+      final bool? collectionAlreadyExists =
+        await context.read<CollectionProviderModel>().collectionNameAlreadyExists(_textEditingController.text);
+      if (collectionAlreadyExists == null || !collectionAlreadyExists) {
         if (!mounted) return;
-        await context.read<CollectionCardsModel>().createCollection(_textEditingController.text);
+        await context.read<CollectionProviderModel>().createCollection(_textEditingController.text);
         if (!mounted) return;
         Navigator.pop(context);
       }

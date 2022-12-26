@@ -1,15 +1,15 @@
-import 'card_model.dart';
+import 'flash_card_model.dart';
 
 class Collection {
   final String name;
-  final List<Card> listCards;
+  final List<FlashCard> listCards;
 
   Collection({required this.name, required this.listCards});
 
   factory Collection.fromJson(Map<String, dynamic> json) {
-    final List<Card> listCards = [];
+    final List<FlashCard> listCards = [];
     json['cards'].forEach((item) {
-      listCards.add(Card.fromJson(item));
+      listCards.add(FlashCard.fromJson(item));
     });
 
     return Collection(
