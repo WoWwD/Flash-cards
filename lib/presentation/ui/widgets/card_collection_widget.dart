@@ -5,18 +5,21 @@ class CardCollection extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback upload;
   final VoidCallback delete;
+  final int amountCards;
 
   const CardCollection({
     Key? key,
     required this.name,
     required this.onTap,
     required this.upload,
-    required this.delete
+    required this.delete,
+    required this.amountCards
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      subtitle: Text('Карточек: $amountCards'),
       title: Text(name),
       onTap: onTap,
       trailing: Wrap(
