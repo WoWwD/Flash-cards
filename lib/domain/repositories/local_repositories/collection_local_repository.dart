@@ -20,4 +20,12 @@ class CollectionLocalRepository implements CollectionLocalAction {
   @override
   Future<bool> deleteCollectionByName(String collectionName) async =>
     await collectionLocalData.deleteCollectionByName(collectionName);
+
+  @override
+  Future<Collection> getCollectionByName(String collectionName) async =>
+    await collectionLocalData.getCollectionByName(collectionName);
+
+  @override
+  Future<void> setCollection(String collectionName, Collection collectionModel) async =>
+    await collectionLocalData.setCollection(collectionName, collectionModel);
 }

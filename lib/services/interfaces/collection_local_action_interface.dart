@@ -6,4 +6,6 @@ abstract class CollectionLocalAction {
   /// Возвращает null если список коллекций пуст
   Future<bool?> collectionNameAlreadyExists(String collectionName);
   Future<bool> deleteCollectionByName(String collectionName);
+  Future<Collection> getCollectionByName(String collectionName);
+  Future<void> setCollection(String collectionName, Collection collectionModel);
 }

@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flash_cards/presentation/provider/collection_provider_model.dart';
 import 'package:flash_cards/presentation/ui/screens/list_cards_screen.dart';
 import 'package:flash_cards/presentation/ui/widgets/card_collection_widget.dart';
@@ -37,8 +38,8 @@ class CollectionsScreen extends StatelessWidget {
                   builder: (context) => ListCardsScreen(nameCollection: model.listCollections[index].name)
                 )
               ),
-              upload: () {},
-              delete: () => _deleteCollection(model, index, context)
+              upload: () => _uploadCollection(model, model.listCollections[index].name, context),
+              delete: () => _deleteCollection(model, model.listCollections[index].name, context)
             ),
             separatorBuilder: (context, index) => const Divider(height: 1),
             itemCount: model.listCollections.length
@@ -50,7 +51,14 @@ class CollectionsScreen extends StatelessWidget {
 
   Widget _firstCollection() => const Text('Создайте вашу первую коллекцию карточек');
 
-  void _deleteCollection(CollectionProviderModel model, int index, BuildContext context) {
+  void _uploadCollection(CollectionProviderModel model, String collectionName, BuildContext context) async {
+    final String json = await model.collectionToJson(collectionName);
+    FlutterClipboard.copy(json)
+      .then((value) => ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('JSON скопирован в буфер обмена'))));
+  }
+
+  void _deleteCollection(CollectionProviderModel model, String collectionName, BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => PrimaryAlertDialog(
@@ -58,7 +66,7 @@ class CollectionsScreen extends StatelessWidget {
         actions: [
           PrimaryButton(
             text: 'Да',
-            onPressed: () =>  model.deleteCollectionByName(model.listCollections[index].name)
+            onPressed: () => model.deleteCollectionByName(collectionName)
               .then((value) => Navigator.pop(context))
           ),
           const SizedBox(width: 16),

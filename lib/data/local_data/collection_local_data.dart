@@ -58,4 +58,17 @@ class CollectionLocalData implements CollectionLocalAction {
       return false;
     }
   }
+
+  @override
+  Future<Collection> getCollectionByName(String collectionName) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final String collectionJson = sp.getString(collectionName)!;
+    return Collection.fromJson(json.decode(collectionJson));
+  }
+
+  @override
+  Future<void> setCollection(String collectionName, Collection collectionModel) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.setString(collectionName, json.encode(collectionModel.toJson()));
+  }
 }
