@@ -5,24 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/flash_card_model.dart';
 
 class CardLocalData implements CardLocalAction {
-
-  @override
-  Future<bool> cardAlreadyExists(String nameCollection, FlashCard cardModel) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final Collection collectionModel = Collection.fromJson(json.decode(sp.getString(nameCollection)!));
-    return collectionModel.listCards.contains(cardModel);
-  }
-
   @override
   Future<void> createCard(String nameCollection, FlashCard cardModel) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    final Collection oldCollectionModel = Collection.fromJson(json.decode(sp.getString(nameCollection)!));
-    final Collection newCollectionModel = Collection(
-      name: oldCollectionModel.name,
-      listCards: oldCollectionModel.listCards
-    );
-    newCollectionModel.listCards.add(cardModel);
-    await sp.setString(nameCollection, json.encode(newCollectionModel.toJson()));
+    final Collection collectionModel = Collection.fromJson(json.decode(sp.getString(nameCollection)!));
+    collectionModel.listCards
+      .removeWhere((element) => element.word == cardModel.word && element.translate == cardModel.translate);
+    collectionModel.listCards.add(cardModel);
+    await sp.setString(nameCollection, json.encode(collectionModel.toJson()));
   }
 
   @override

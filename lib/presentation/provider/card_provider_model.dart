@@ -16,9 +16,6 @@ class CardProviderModel extends ChangeNotifier {
   Future<void> deleteCard(String nameCollection, int index) async =>
     await cardLocalRepository.deleteCardByIndex(nameCollection, index);
 
-  Future<bool> cardAlreadyExists(String nameCollection, FlashCard cardModel) async =>
-    await cardLocalRepository.cardAlreadyExists(nameCollection, cardModel);
-
   Future<void> getListCards(String nameCollection) async {
     _listCards = await cardLocalRepository.getListCards(nameCollection);
     notifyListeners();

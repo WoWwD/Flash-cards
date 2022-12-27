@@ -1,9 +1,10 @@
 import 'package:flash_cards/presentation/ui/widgets/primary_alert_dialog_widget.dart';
 import 'package:flash_cards/presentation/ui/widgets/primary_button_widget.dart';
-import 'package:flash_cards/services/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../services/constants/app_constants.dart';
 import '../../../services/errors/input_errors.dart';
+import '../../../services/validators/text_field_validator.dart';
 import '../../provider/collection_provider_model.dart';
 
 class CreateCollection extends StatefulWidget {
@@ -27,8 +28,8 @@ class _CreateCollectionState extends State<CreateCollection> {
           onChanged: (value) => setState(() {
             _textEditingController.text = value;
           }),
-          validator: (value) => _validator(value ?? ''),
-          maxLength: 24,
+          validator: (value) => TextFieldValidator.get(value ?? ''),
+          maxLength: AppConstants.textMaxLength,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Название',
@@ -46,26 +47,22 @@ class _CreateCollectionState extends State<CreateCollection> {
     );
   }
 
-  String? _validator(String value) {
-    if (value.toString().isEmpty) {
-      return InputErrors.empty;
-    }
-    if (value.toString().isMaxLength()) {
-      return InputErrors.maxLength;
-    }
-    return null;
-  }
-
   void _createCollection(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      final bool? collectionAlreadyExists =
-        await context.read<CollectionProviderModel>().collectionNameAlreadyExists(_textEditingController.text);
-      if (collectionAlreadyExists == null || !collectionAlreadyExists) {
-        if (!mounted) return;
-        await context.read<CollectionProviderModel>().createCollection(_textEditingController.text);
-        if (!mounted) return;
-        Navigator.pop(context);
-      }
+      await context.read<CollectionProviderModel>().collectionNameAlreadyExists(_textEditingController.text)
+        .then((value) async {
+          if (value == null || !value) {
+            await context.read<CollectionProviderModel>().createCollection(_textEditingController.text)
+              .then((value) => Navigator.pop(context));
+          }
+          else {
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text(InputErrors.collectionAlreadyExists)));
+          }
+          return null;
+        }
+      );
     }
   }
 }

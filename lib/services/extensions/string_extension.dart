@@ -1,4 +1,5 @@
+import '../constants/app_constants.dart';
+
 extension StringExtension on String {
-  bool isMaxLength() => length > 24;
-  bool isMinLength() => length < 3;
+  bool isMaxLength() => length > AppConstants.textMaxLength;
 }

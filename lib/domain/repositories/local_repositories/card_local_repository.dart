@@ -8,10 +8,6 @@ class CardLocalRepository implements CardLocalAction {
   CardLocalRepository(this.cardLocalData);
 
   @override
-  Future<bool> cardAlreadyExists(String nameCollection, FlashCard cardModel) async =>
-    await cardLocalData.cardAlreadyExists(nameCollection, cardModel);
-
-  @override
   Future<void> createCard(String nameCollection, FlashCard cardModel) async =>
     await cardLocalData.createCard(nameCollection, cardModel);
 
