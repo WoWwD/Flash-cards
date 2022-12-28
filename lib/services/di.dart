@@ -5,6 +5,7 @@ import 'package:flash_cards/domain/repositories/local_repositories/collection_lo
 import 'package:get_it/get_it.dart';
 import '../presentation/provider/card_provider_model.dart';
 import '../presentation/provider/collection_provider_model.dart';
+import '../presentation/provider/search_provider_model.dart';
 import '../presentation/provider/settings_provider_model.dart';
 
 final getIt = GetIt.instance;
@@ -33,6 +34,10 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => SettingsProviderModel());
   getIt.registerLazySingleton(() => CollectionProviderModel(collectionLocalRepository: collectionLocalRepository));
   getIt.registerLazySingleton(() => CardProviderModel(cardLocalRepository: cardLocalRepository));
+  getIt.registerLazySingleton(() => SearchProviderModel(
+    cardLocalRepository: cardLocalRepository,
+    collectionLocalRepository: collectionLocalRepository
+  ));
 
   //#endregion
 }
