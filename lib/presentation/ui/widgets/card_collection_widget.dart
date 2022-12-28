@@ -1,41 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CardCollection extends StatelessWidget {
   final String name;
   final VoidCallback onTap;
-  final VoidCallback upload;
-  final VoidCallback delete;
+  final Function(BuildContext) onPressedUpload;
+  final Function(BuildContext) onPressedDelete;
+  final VoidCallback startLearning;
   final int amountCards;
 
   const CardCollection({
     Key? key,
     required this.name,
     required this.onTap,
-    required this.upload,
-    required this.delete,
+    required this.onPressedUpload,
+    required this.onPressedDelete,
+    required this.startLearning,
     required this.amountCards
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      subtitle: Text('Карточек: $amountCards'),
-      title: Text(name),
-      onTap: onTap,
-      trailing: Wrap(
-        spacing: 12,
+    return Slidable(
+      key: const ValueKey(0),
+      endActionPane: ActionPane(
+        dragDismissible: false,
+        motion: const DrawerMotion(),
         children: [
-          IconButton(
-            splashRadius: 30,
-            onPressed: upload,
-            icon: const Icon(Icons.upload),
+          SlidableAction(
+            onPressed: onPressedUpload,
+            backgroundColor: Colors.blueAccent,
+            icon: Icons.upload,
+            label: 'Импорт',
           ),
-          IconButton(
-            splashRadius: 30,
-            onPressed: delete,
-            icon: const Icon(Icons.delete, color: Colors.redAccent),
-          )
+          SlidableAction(
+            onPressed: onPressedDelete,
+            backgroundColor: Colors.redAccent,
+            icon: Icons.delete,
+            label: 'Удалить',
+          ),
         ],
+      ),
+      child: ListTile(
+        subtitle: Text('Карточек: $amountCards'),
+        title: Text(name),
+        onTap: onTap,
+        trailing: IconButton(
+          splashRadius: 30,
+          onPressed: startLearning,
+          icon: const Icon(Icons.school, color: Colors.green),
+        ),
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:flash_cards/presentation/ui/widgets/primary_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/primary_scaffold_widget.dart';
+import '../widgets/theme_switcher_widget.dart';
 
 class CollectionsScreen extends StatelessWidget {
   const CollectionsScreen({Key? key}) : super(key: key);
@@ -15,6 +16,12 @@ class CollectionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryScaffoldWidget(
+      actions: const [
+        Padding(
+          padding: EdgeInsets.only(right: 16),
+          child: ThemeSwitcher(),
+        )
+      ],
       titleText: 'Коллекция карточек',
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -26,24 +33,28 @@ class CollectionsScreen extends StatelessWidget {
       child: Consumer<CollectionProviderModel>(
         builder: (context, model, child) {
           model.getListCollections();
-          if (model.listCollections.isEmpty) return _firstCollection();
-
-          return ListView.separated(
-            itemBuilder: (context, index) => CardCollection(
-              amountCards: model.listCollections[index].listCards.length,
-              name: model.listCollections[index].name,
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ListCardsScreen(nameCollection: model.listCollections[index].name)
-                )
+          if (model.listCollections.isEmpty && !model.isLoading) return _firstCollection();
+          if (model.listCollections.isNotEmpty) {
+            return ListView.separated(
+              itemBuilder: (context, index) => CardCollection(
+                amountCards: model.listCollections[index].listCards.length,
+                name: model.listCollections[index].name,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListCardsScreen(nameCollection: model.listCollections[index].name)
+                  )
+                ),
+                onPressedUpload: (context) => _uploadCollection(model, model.listCollections[index].name, context),
+                onPressedDelete: (context) => _deleteCollection(model, model.listCollections[index].name, context),
+                startLearning: () {},
               ),
-              upload: () => _uploadCollection(model, model.listCollections[index].name, context),
-              delete: () => _deleteCollection(model, model.listCollections[index].name, context)
-            ),
-            separatorBuilder: (context, index) => const Divider(height: 1),
-            itemCount: model.listCollections.length
-          );
+              separatorBuilder: (context, index) => const Divider(height: 1),
+              itemCount: model.listCollections.length
+            );
+          }
+
+          return const CircularProgressIndicator();
         }
       )
     );
