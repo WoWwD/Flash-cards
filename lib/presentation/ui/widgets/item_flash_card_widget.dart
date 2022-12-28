@@ -5,18 +5,19 @@ import '../../../data/model/flash_card_model.dart';
 
 class ItemFlashCard extends StatelessWidget {
   final FlashCard flashCardModel;
-  final Function(BuildContext) onPressedDelete;
+  final Function(BuildContext)? onPressedDelete;
 
   const ItemFlashCard({
     Key? key,
     required this.flashCardModel,
-    required this.onPressedDelete
+    this.onPressedDelete
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      endActionPane: ActionPane(
+      endActionPane: onPressedDelete != null
+      ? ActionPane(
         extentRatio: 0.2,
         dragDismissible: false,
         motion: const DrawerMotion(),
@@ -28,7 +29,8 @@ class ItemFlashCard extends StatelessWidget {
             icon: Icons.delete,
           ),
         ],
-      ),
+      )
+      : null,
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.symmetric(horizontal: 16),

@@ -14,11 +14,22 @@ class SearchProviderModel extends ChangeNotifier {
   });
 
   List<FlashCard> _foundFlashcards = [];
+  bool _isLoading = true;
+
+  bool get isLoading => _isLoading;
   List<FlashCard> get foundFlashcards => _foundFlashcards;
 
-  Future<void> search() async {
+  Future<void> search(String searchedValue) async {
     List<Collection> listCollections = [];
+    List<FlashCard> listFlashCards = [];
     listCollections = await collectionLocalRepository.getListCollections() ?? [];
+    for (int i = 0; i < listCollections.length; i++) {
+      listFlashCards.addAll(listCollections[i].listCards
+        .where((element) => element.translate.contains(searchedValue) || element.word.contains(searchedValue))
+      );
+    }
+    _foundFlashcards = listFlashCards;
+    _isLoading = false;
     notifyListeners();
   }
 }
