@@ -3,7 +3,6 @@ import 'package:flash_cards/presentation/ui/widgets/create_card_widget.dart';
 import 'package:flash_cards/presentation/ui/widgets/primary_scaffold_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/item_flash_card_widget.dart';
 
 class ListCardsScreen extends StatelessWidget {
@@ -31,11 +30,13 @@ class ListCardsScreen extends StatelessWidget {
           if (model.listCards.isEmpty) return _firstCard();
 
           return ListView.separated(
+            padding: const EdgeInsets.symmetric(vertical: 24),
             itemBuilder: (context, index) => ItemFlashCard(
               flashCardModel: model.listCards[index],
-              delete: () => model.deleteCard(nameCollection, index),
+              onPressedDelete: (context) => model.deleteCard(nameCollection, index),
             ),
-            separatorBuilder: (context, index) => const Divider(height: 1),
+
+            separatorBuilder: (context, index) => const SizedBox(height: 28),
             itemCount: model.listCards.length,
           );
         }
