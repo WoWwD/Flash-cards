@@ -48,7 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget _nothingFound() => const Text('Ничего не найдено');
 
-  Widget _findWord() => const Text('Найдите любое слово из ваших коллекций');
+  Widget _findWord() => const Text('Найдите слово из ваших словарей');
 
   Widget _textField() {
     return Form(

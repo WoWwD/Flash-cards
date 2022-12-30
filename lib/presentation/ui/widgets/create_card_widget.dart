@@ -6,11 +6,12 @@ import 'package:flash_cards/services/validators/text_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../services/constants/app_constants.dart';
+import '../../../services/errors.dart';
 
 class CreateCard extends StatefulWidget {
-  final String nameCollection;
+  final String dictionaryName;
 
-  const CreateCard({Key? key, required this.nameCollection}) : super(key: key);
+  const CreateCard({Key? key, required this.dictionaryName}) : super(key: key);
 
   @override
   State<CreateCard> createState() => _CreateCardState();
@@ -61,21 +62,26 @@ class _CreateCardState extends State<CreateCard> {
           PrimaryButton(
             size: const Size(100, 30),
             text: 'Создать',
-            onPressed: () => _createCollection(context),
+            onPressed: () => _create(context, widget.dictionaryName),
           )
         ]
       )
     );
   }
 
-  void _createCollection(BuildContext context) async {
+  void _create(BuildContext context, String dictionaryName) async {
     if (_formKey.currentState!.validate()) {
-      final FlashCard flashCardModel = FlashCard(
-        word: _wordController.text,
-        translate: _translateController.text
-      );
-        await context.read<CardProviderModel>().createCard(widget.nameCollection, flashCardModel)
+      if (!await context.read<CardProviderModel>().cardAlreadyExists(dictionaryName, _wordController.text)) {
+        final FlashCard flashCardModel = FlashCard(
+          word: _wordController.text,
+          translate: _translateController.text
+        );
+        await context.read<CardProviderModel>().createCard(widget.dictionaryName, flashCardModel)
           .then((value) => Navigator.pop(context));
       }
+      else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text(Errors.cardAlreadyExists)));
+      }
     }
+  }
 }

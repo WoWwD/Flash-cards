@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class CardCollection extends StatelessWidget {
+class DictionaryCard extends StatelessWidget {
   final String name;
   final VoidCallback onTap;
   final Function(BuildContext) onPressedUpload;
@@ -9,7 +9,7 @@ class CardCollection extends StatelessWidget {
   final VoidCallback startLearning;
   final int amountCards;
 
-  const CardCollection({
+  const DictionaryCard({
     Key? key,
     required this.name,
     required this.onTap,

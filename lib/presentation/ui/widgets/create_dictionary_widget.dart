@@ -6,16 +6,16 @@ import 'package:provider/provider.dart';
 import '../../../services/constants/app_constants.dart';
 import '../../../services/errors.dart';
 import '../../../services/validators/text_field_validator.dart';
-import '../../provider/collection_provider_model.dart';
+import '../../provider/dictionary_provider_model.dart';
 
-class CreateCollection extends StatefulWidget {
-  const CreateCollection({Key? key}) : super(key: key);
+class CreateDictionary extends StatefulWidget {
+  const CreateDictionary({Key? key}) : super(key: key);
 
   @override
-  State<CreateCollection> createState() => _CreateCollectionState();
+  State<CreateDictionary> createState() => _CreateDictionaryState();
 }
 
-class _CreateCollectionState extends State<CreateCollection> {
+class _CreateDictionaryState extends State<CreateDictionary> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
   bool _isCreateFromJson = false;
@@ -26,7 +26,7 @@ class _CreateCollectionState extends State<CreateCollection> {
       key: _formKey,
       child: PrimaryAlertDialog(
         height: 150,
-        textTitle: 'Создание коллекции',
+        textTitle: 'Создание словаря',
         content: Column(
           children: [
             TextFormField(
@@ -58,27 +58,26 @@ class _CreateCollectionState extends State<CreateCollection> {
           PrimaryButton(
             size: const Size(100, 30),
             text: 'Создать',
-            onPressed: () => _createCollection(context),
+            onPressed: () => _create(context),
           )
         ]
       )
     );
   }
 
-  void _createCollection(BuildContext context) async {
+  void _create(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      await context.read<CollectionProviderModel>().collectionNameAlreadyExists(_textEditingController.text)
+      await context.read<DictionaryProviderModel>().dictionaryNameAlreadyExists(_textEditingController.text)
         .then((value) async {
           if (value == null || !value) {
             if (_isCreateFromJson) {
-              await context.read<CollectionProviderModel>()
-                .createCollectionFromJson(_textEditingController.text, await FlutterClipboard.paste())
+              await context.read<DictionaryProviderModel>()
+                .createDictionaryFromJson(_textEditingController.text, await FlutterClipboard.paste())
                   .then((value) {
                   if (value) {
                     Navigator.pop(context);
                   }
                   else {
-                    Navigator.pop(context);
                     ScaffoldMessenger.of(context)
                       .showSnackBar(const SnackBar(content: Text(Errors.invalidFormatJson)));
                   }
@@ -86,14 +85,13 @@ class _CreateCollectionState extends State<CreateCollection> {
               );
             }
             else {
-              await context.read<CollectionProviderModel>().createCollection(_textEditingController.text)
+              await context.read<DictionaryProviderModel>().createDictionary(_textEditingController.text)
                 .then((value) => Navigator.pop(context));
             }
           }
           else {
-            Navigator.pop(context);
             ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text(Errors.collectionAlreadyExists)));
+              .showSnackBar(const SnackBar(content: Text(Errors.dictionaryAlreadyExists)));
           }
           return null;
         }

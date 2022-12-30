@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 import '../widgets/item_flash_card_widget.dart';
 
 class ListCardsScreen extends StatelessWidget {
-  final String nameCollection;
+  final String dictionaryName;
 
   const ListCardsScreen({
     Key? key,
-    required this.nameCollection
+    required this.dictionaryName
   }) : super(key: key);
 
   @override
@@ -20,22 +20,21 @@ class ListCardsScreen extends StatelessWidget {
         child: const Icon(Icons.add),
         onPressed: () => showDialog(
           context: context,
-          builder: (context) => CreateCard(nameCollection: nameCollection)
+          builder: (context) => CreateCard(dictionaryName: dictionaryName)
         )
       ),
-      titleText: nameCollection,
+      titleText: dictionaryName,
       child: Consumer<CardProviderModel>(
         builder: (context, model, child) {
-          model.getListCards(nameCollection);
+          model.getListCards(dictionaryName);
           if (model.listCards.isEmpty) return _firstCard();
 
           return ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 24),
             itemBuilder: (context, index) => ItemFlashCard(
               flashCardModel: model.listCards[index],
-              onPressedDelete: (context) => model.deleteCard(nameCollection, index),
+              onPressedDelete: (context) => model.deleteCard(dictionaryName, index),
             ),
-
             separatorBuilder: (context, index) => const SizedBox(height: 28),
             itemCount: model.listCards.length,
           );

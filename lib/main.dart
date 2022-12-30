@@ -1,5 +1,5 @@
 import 'package:flash_cards/presentation/provider/card_provider_model.dart';
-import 'package:flash_cards/presentation/provider/collection_provider_model.dart';
+import 'package:flash_cards/presentation/provider/dictionary_provider_model.dart';
 import 'package:flash_cards/presentation/provider/learning_provider_model.dart';
 import 'package:flash_cards/presentation/provider/search_provider_model.dart';
 import 'package:flash_cards/presentation/provider/settings_provider_model.dart';
@@ -15,7 +15,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<SettingsProviderModel>(create: (_) => di.getIt()..getValueTheme()),
-        ChangeNotifierProvider<CollectionProviderModel>(create: (_) => di.getIt()),
+        ChangeNotifierProvider<DictionaryProviderModel>(create: (_) => di.getIt()),
         ChangeNotifierProvider<CardProviderModel>(create: (_) => di.getIt()),
         ChangeNotifierProvider<SearchProviderModel>(create: (_) => di.getIt()),
         ChangeNotifierProvider<LearningProviderModel>(create: (_) => di.getIt())

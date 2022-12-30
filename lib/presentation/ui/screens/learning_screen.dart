@@ -1,4 +1,4 @@
-import 'package:flash_cards/data/model/collection_model.dart';
+import 'package:flash_cards/data/model/dictionary_model.dart';
 import 'package:flash_cards/presentation/provider/learning_provider_model.dart';
 import 'package:flash_cards/presentation/ui/widgets/primary_scaffold_widget.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +6,11 @@ import 'package:flash_card/flash_card.dart';
 import 'package:provider/provider.dart';
 
 class LearningScreen extends StatelessWidget {
-  final Collection collectionModel;
+  final Dictionary dictionaryModel;
 
   const LearningScreen({
     Key? key,
-    required this.collectionModel
+    required this.dictionaryModel
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class LearningScreen extends StatelessWidget {
             Expanded(
               child: Consumer<LearningProviderModel>(
                 builder: (context, model, child) {
-                  model.setListCards(collectionModel.listCards);
+                  model.setListCards(dictionaryModel.listCards);
                   return FlashCard(
                     duration: const Duration(milliseconds: 400),
                     height: 400,
