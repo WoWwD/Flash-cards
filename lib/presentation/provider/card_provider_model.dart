@@ -20,4 +20,6 @@ class CardProviderModel extends ChangeNotifier {
     _listCards = await cardLocalRepository.getListCards(nameCollection);
     notifyListeners();
   }
+  Future<bool> cardAlreadyExists(String nameCollection, String word) async =>
+    await cardLocalRepository.cardAlreadyExists(nameCollection, word);
 }
