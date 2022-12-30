@@ -26,12 +26,7 @@ class PrimaryAlertDialog extends StatelessWidget {
         height: content != null? height: 0,
         child: content
       ),
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: actions
-        )
-      ],
+      actions: actions
     );
   }
 }

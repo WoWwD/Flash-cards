@@ -1,6 +1,5 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flash_cards/presentation/ui/widgets/primary_alert_dialog_widget.dart';
-import 'package:flash_cards/presentation/ui/widgets/primary_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../services/constants/app_constants.dart';
@@ -43,8 +42,7 @@ class _CreateDictionaryState extends State<CreateDictionary> {
             ),
             const SizedBox(height: 8),
             CheckboxListTile(
-              subtitle: const Text('Импорт из буфера обмена'),
-              //selected: _isFromJson,
+              title: const Text('Импорт из буфера обмена', style: TextStyle(fontSize: 14)),
               value: _isCreateFromJson,
               onChanged: (bool? value) {
                 setState(() {
@@ -55,11 +53,10 @@ class _CreateDictionaryState extends State<CreateDictionary> {
           ],
         ),
         actions: [
-          PrimaryButton(
-            size: const Size(100, 30),
-            text: 'Создать',
+          TextButton(
             onPressed: () => _create(context),
-          )
+            child: const Text('Создать')
+          ),
         ]
       )
     );

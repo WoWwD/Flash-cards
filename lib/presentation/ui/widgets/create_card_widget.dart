@@ -1,7 +1,6 @@
 import 'package:flash_cards/data/model/flash_card_model.dart';
 import 'package:flash_cards/presentation/provider/card_provider_model.dart';
 import 'package:flash_cards/presentation/ui/widgets/primary_alert_dialog_widget.dart';
-import 'package:flash_cards/presentation/ui/widgets/primary_button_widget.dart';
 import 'package:flash_cards/services/validators/text_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,10 +58,9 @@ class _CreateCardState extends State<CreateCard> {
           ],
         ),
         actions: [
-          PrimaryButton(
-            size: const Size(100, 30),
-            text: 'Создать',
+          TextButton(
             onPressed: () => _create(context, widget.dictionaryName),
+            child: const Text('Создать'),
           )
         ]
       )

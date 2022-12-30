@@ -1,4 +1,5 @@
 import 'package:clipboard/clipboard.dart';
+import 'package:flash_cards/data/model/dictionary_model.dart';
 import 'package:flash_cards/presentation/provider/dictionary_provider_model.dart';
 import 'package:flash_cards/presentation/ui/screens/learning_screen.dart';
 import 'package:flash_cards/presentation/ui/screens/list_cards_screen.dart';
@@ -8,11 +9,12 @@ import 'package:flash_cards/presentation/ui/widgets/primary_alert_dialog_widget.
 import 'package:flash_cards/presentation/ui/widgets/primary_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../services/errors.dart';
 import '../widgets/primary_scaffold_widget.dart';
 import '../widgets/theme_switcher_widget.dart';
 
-class DictionariesScreen extends StatelessWidget {
-  const DictionariesScreen({Key? key}) : super(key: key);
+class ListDictionariesScreen extends StatelessWidget {
+  const ListDictionariesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +50,7 @@ class DictionariesScreen extends StatelessWidget {
                 ),
                 onPressedUpload: (context) => _upload(model, model.listDictionaries[index].name, context),
                 onPressedDelete: (context) => _delete(model, model.listDictionaries[index].name, context),
-                startLearning: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LearningScreen(dictionaryModel: model.listDictionaries[index])
-                  )
-                ),
+                startLearning: () => _startLearning(context, model.listDictionaries[index])
               ),
               separatorBuilder: (context, index) => const Divider(height: 1),
               itemCount: model.listDictionaries.length
@@ -95,4 +92,21 @@ class DictionariesScreen extends StatelessWidget {
       )
     );
   }
+
+  void _startLearning(BuildContext context, Dictionary dictionaryModel) {
+    if (dictionaryModel.listCards.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LearningScreen(dictionaryModel: dictionaryModel)
+        )
+      );
+    }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text(Errors.dictionaryIsEmpty))
+      );
+    }
+  }
+
 }
