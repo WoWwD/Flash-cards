@@ -1,5 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flash_cards/presentation/provider/collection_provider_model.dart';
+import 'package:flash_cards/presentation/ui/screens/learning_screen.dart';
 import 'package:flash_cards/presentation/ui/screens/list_cards_screen.dart';
 import 'package:flash_cards/presentation/ui/widgets/card_collection_widget.dart';
 import 'package:flash_cards/presentation/ui/widgets/create_collection_widget.dart';
@@ -47,7 +48,12 @@ class CollectionsScreen extends StatelessWidget {
                 ),
                 onPressedUpload: (context) => _uploadCollection(model, model.listCollections[index].name, context),
                 onPressedDelete: (context) => _deleteCollection(model, model.listCollections[index].name, context),
-                startLearning: () {},
+                startLearning: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LearningScreen(collectionModel: model.listCollections[index])
+                  )
+                ),
               ),
               separatorBuilder: (context, index) => const Divider(height: 1),
               itemCount: model.listCollections.length
