@@ -1,5 +1,5 @@
 import 'package:flash_cards/presentation/ui/screens/search_screen.dart';
-import 'package:flash_cards/presentation/ui/screens/dictionary_screen.dart';
+import 'package:flash_cards/presentation/ui/screens/dictionaries_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavBarWidget extends StatefulWidget {
