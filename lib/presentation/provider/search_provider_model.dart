@@ -25,7 +25,7 @@ class SearchProviderModel extends ChangeNotifier {
     listCollections = await dictionaryLocalRepository.getListDictionaries() ?? [];
     for (int i = 0; i < listCollections.length; i++) {
       listFlashCards.addAll(listCollections[i].listCards
-        .where((element) => element.translate.contains(searchedValue) || element.word.contains(searchedValue))
+        .where((element) => element.translate == searchedValue || element.word == searchedValue)
       );
     }
     _foundFlashcards = listFlashCards;

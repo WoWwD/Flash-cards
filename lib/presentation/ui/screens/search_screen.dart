@@ -78,6 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget _found(List<FlashCard> foundFlashCards) {
     return ListView.separated(
+      controller: ScrollController(),
       padding: const EdgeInsets.symmetric(vertical: 16),
       separatorBuilder: (context, index) => const SizedBox(height: 28),
       itemCount: foundFlashCards.length,
