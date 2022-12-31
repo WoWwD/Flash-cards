@@ -11,7 +11,7 @@ class LearningProviderModel extends ChangeNotifier {
   int get numberCard => _numberCard;
   List<FlashCard> get listCards => _listCards;
 
-  void setListCards(List<FlashCard> listCards) {
+  void getListCards(List<FlashCard> listCards) {
     _listCards = listCards;
     notifyListeners();
   }

@@ -39,7 +39,7 @@ Future<void> init() async {
     cardLocalRepository: cardLocalRepository,
     dictionaryLocalRepository: dictionaryLocalRepository
   ));
-  getIt.registerLazySingleton(() => LearningProviderModel());
+  getIt.registerFactory(() => LearningProviderModel());
 
   //#endregion
 }
