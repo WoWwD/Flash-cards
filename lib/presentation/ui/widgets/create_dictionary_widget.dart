@@ -3,7 +3,7 @@ import 'package:flash_cards/presentation/ui/widgets/primary_alert_dialog_widget.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../services/constants/app_constants.dart';
-import '../../../services/errors.dart';
+import '../../../services/strings.dart';
 import '../../../services/validators/text_field_validator.dart';
 import '../../provider/dictionary_provider_model.dart';
 
@@ -76,7 +76,7 @@ class _CreateDictionaryState extends State<CreateDictionary> {
                   }
                   else {
                     ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text(Errors.invalidFormatJson)));
+                      .showSnackBar(const SnackBar(content: Text(Strings.invalidFormatJson)));
                   }
                 }
               );
@@ -88,7 +88,7 @@ class _CreateDictionaryState extends State<CreateDictionary> {
           }
           else {
             ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text(Errors.dictionaryAlreadyExists)));
+              .showSnackBar(const SnackBar(content: Text(Strings.dictionaryAlreadyExists)));
           }
           return null;
         }

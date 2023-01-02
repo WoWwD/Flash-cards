@@ -1,13 +1,13 @@
 import 'package:flash_cards/services/extensions/string_extension.dart';
-import '../errors.dart';
+import '../strings.dart';
 
 class TextFieldValidator {
   static String? get(String value) {
     if (value.toString().isEmpty) {
-      return Errors.empty;
+      return Strings.empty;
     }
     if (value.toString().isMaxLength()) {
-      return Errors.maxLength;
+      return Strings.maxLength;
     }
     return null;
   }

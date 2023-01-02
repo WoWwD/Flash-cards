@@ -5,7 +5,7 @@ import 'package:flash_cards/services/validators/text_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../services/constants/app_constants.dart';
-import '../../../services/errors.dart';
+import '../../../services/strings.dart';
 
 class CreateCard extends StatefulWidget {
   final String dictionaryName;
@@ -78,7 +78,7 @@ class _CreateCardState extends State<CreateCard> {
           .then((value) => Navigator.pop(context));
       }
       else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text(Errors.cardAlreadyExists)));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text(Strings.cardAlreadyExists)));
       }
     }
   }

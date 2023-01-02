@@ -9,7 +9,7 @@ import 'package:flash_cards/presentation/ui/widgets/primary_alert_dialog_widget.
 import 'package:flash_cards/presentation/ui/widgets/primary_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../services/errors.dart';
+import '../../../services/strings.dart';
 import '../widgets/primary_scaffold_widget.dart';
 import '../widgets/theme_switcher_widget.dart';
 
@@ -104,9 +104,8 @@ class ListDictionariesScreen extends StatelessWidget {
     }
     else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(Errors.dictionaryIsEmpty))
+        const SnackBar(content: Text(Strings.dictionaryIsEmpty))
       );
     }
   }
-
 }
