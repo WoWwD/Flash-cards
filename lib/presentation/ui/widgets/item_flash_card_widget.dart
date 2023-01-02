@@ -6,31 +6,39 @@ import '../../../data/model/flash_card_model.dart';
 class ItemFlashCard extends StatelessWidget {
   final FlashCard flashCardModel;
   final Function(BuildContext)? onPressedDelete;
+  final Function(BuildContext)? onPressedMove;
 
   const ItemFlashCard({
     Key? key,
     required this.flashCardModel,
-    this.onPressedDelete
+    this.onPressedDelete,
+    this.onPressedMove
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      endActionPane: onPressedDelete != null
-      ? ActionPane(
-        extentRatio: 0.2,
+      endActionPane: ActionPane(
+        extentRatio: 0.6,
         dragDismissible: false,
         motion: const DrawerMotion(),
         children: [
           SlidableAction(
             borderRadius: BorderRadius.circular(AppStyles.borderRadiusApp),
+            onPressed: onPressedMove,
+            backgroundColor: Colors.blueAccent,
+            icon: Icons.arrow_forward_rounded,
+            label: 'Переместить',
+          ),
+          SlidableAction(
+            borderRadius: BorderRadius.circular(AppStyles.borderRadiusApp),
             onPressed: onPressedDelete,
             backgroundColor: Colors.redAccent,
             icon: Icons.delete,
+            label: 'Удалить',
           ),
         ],
-      )
-      : null,
+      ),
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -40,9 +48,9 @@ class ItemFlashCard extends StatelessWidget {
           height: 70,
           child: Row(
             children: [
-              Expanded(child: Center(child: Text(flashCardModel.word))),
+              Expanded(child: Center(child: Text(flashCardModel.word, style: const TextStyle(fontSize: 18)))),
               const VerticalDivider(indent: 10, endIndent: 10),
-              Expanded(child: Center(child: Text(flashCardModel.translate))),
+              Expanded(child: Center(child: Text(flashCardModel.translate, style: const TextStyle(fontSize: 18)))),
             ],
           ),
         )

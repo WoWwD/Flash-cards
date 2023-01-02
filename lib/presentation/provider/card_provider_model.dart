@@ -20,6 +20,23 @@ class CardProviderModel extends ChangeNotifier {
     _listCards = await cardLocalRepository.getListCards(nameCollection);
     notifyListeners();
   }
+
   Future<bool> cardAlreadyExists(String nameCollection, String word) async =>
     await cardLocalRepository.cardAlreadyExists(nameCollection, word);
+
+  Future<bool> moveCardToDictionary(
+    String oldCollection,
+    String newCollection,
+    FlashCard flashCardModel,
+    int cardIndex
+  ) async {
+    if (!await cardLocalRepository.cardAlreadyExists(newCollection, flashCardModel.word)) {
+      await cardLocalRepository.deleteCardByIndex(oldCollection, cardIndex);
+      await cardLocalRepository.createCard(newCollection, flashCardModel);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }

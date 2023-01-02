@@ -4,18 +4,18 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class DictionaryCard extends StatelessWidget {
   final String name;
   final VoidCallback onTap;
-  final Function(BuildContext) onPressedUpload;
-  final Function(BuildContext) onPressedDelete;
-  final VoidCallback startLearning;
+  final Function(BuildContext)? onPressedUpload;
+  final Function(BuildContext)? onPressedDelete;
+  final VoidCallback? startLearning;
   final int amountCards;
 
   const DictionaryCard({
     Key? key,
     required this.name,
     required this.onTap,
-    required this.onPressedUpload,
-    required this.onPressedDelete,
-    required this.startLearning,
+    this.onPressedUpload,
+    this.onPressedDelete,
+    this.startLearning,
     required this.amountCards
   }) : super(key: key);
 
