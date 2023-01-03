@@ -18,6 +18,7 @@ class CardProviderModel extends ChangeNotifier {
 
   Future<void> getListCards(String nameCollection) async {
     _listCards = await cardLocalRepository.getListCards(nameCollection);
+    _listCards.sort((a, b) => a.word.compareTo(b.word));
     notifyListeners();
   }
 
