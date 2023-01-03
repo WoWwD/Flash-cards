@@ -10,6 +10,7 @@ class CardLocalData implements CardLocalAction {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final Dictionary collectionModel = Dictionary.fromJson(json.decode(sp.getString(nameCollection)!));
     collectionModel.listCards.add(cardModel);
+    collectionModel.listCards.sort((a, b) => a.word.compareTo(b.word));
     await sp.setString(nameCollection, json.encode(collectionModel.toJson()));
   }
 
