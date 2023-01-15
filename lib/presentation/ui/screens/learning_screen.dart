@@ -40,17 +40,7 @@ class LearningScreen extends StatelessWidget {
                     splashRadius: 36,
                     iconSize: 46,
                     icon: const Icon(Icons.next_plan),
-                    onPressed: () {
-                      if (model.numberCard == model.listCards.length - 1) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => _cardsAreOver(context, model, dictionaryModel)
-                        );
-                      }
-                      else {
-                        model.nextCard();
-                      }
-                    },
+                    onPressed: () => _onPressedNext(context, model)
                   )
                 ],
               );
@@ -61,10 +51,18 @@ class LearningScreen extends StatelessWidget {
     );
   }
 
-  Widget _getWord(String text) {
-    return Center(
-      child: Text(text, style: const TextStyle(fontSize: 22)),
-    );
+  Widget _getWord(String text) => Center(child: Text(text, style: const TextStyle(fontSize: 22)));
+
+  void _onPressedNext(BuildContext context, LearningProviderModel model) {
+    if (model.numberCard == model.listCards.length - 1) {
+      showDialog(
+        context: context,
+        builder: (context) => _cardsAreOver(context, model, dictionaryModel)
+      );
+    }
+    else {
+      model.nextCard();
+    }
   }
 
   Widget _cardsAreOver(BuildContext context, LearningProviderModel model, Dictionary dictionaryModel) {

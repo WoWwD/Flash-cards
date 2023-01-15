@@ -7,18 +7,21 @@ class ItemFlashCard extends StatelessWidget {
   final FlashCard flashCardModel;
   final Function(BuildContext)? onPressedDelete;
   final Function(BuildContext)? onPressedMove;
+  final bool isSlidable;
 
   const ItemFlashCard({
     Key? key,
     required this.flashCardModel,
     this.onPressedDelete,
-    this.onPressedMove
+    this.onPressedMove,
+    this.isSlidable = true
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      endActionPane: ActionPane(
+      endActionPane: isSlidable
+      ? ActionPane(
         extentRatio: 0.6,
         dragDismissible: false,
         motion: const DrawerMotion(),
@@ -38,7 +41,8 @@ class ItemFlashCard extends StatelessWidget {
             label: 'Удалить',
           ),
         ],
-      ),
+      )
+      : null,
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.symmetric(horizontal: 16),

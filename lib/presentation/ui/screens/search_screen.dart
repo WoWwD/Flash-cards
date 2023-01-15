@@ -71,7 +71,6 @@ class _SearchScreenState extends State<SearchScreen> {
             splashRadius: 30,
           )
         ),
-        //onChanged: onChanged
       ),
     );
   }
@@ -82,7 +81,8 @@ class _SearchScreenState extends State<SearchScreen> {
       padding: const EdgeInsets.symmetric(vertical: 16),
       separatorBuilder: (context, index) => const SizedBox(height: 28),
       itemCount: foundFlashCards.length,
-      itemBuilder: (context, index) => ItemFlashCard(flashCardModel: foundFlashCards[index])
+      itemBuilder: (context, index) => 
+        ItemFlashCard(flashCardModel: foundFlashCards[index], isSlidable: false)
     );
   }
 }
