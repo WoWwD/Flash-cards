@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../services/constants/app_constants.dart';
 import '../../../services/strings.dart';
-import '../../../services/validators/text_field_validator.dart';
+import '../../../services/text_field_validator.dart';
 import '../../provider/dictionary_provider_model.dart';
 
 class CreateDictionary extends StatefulWidget {

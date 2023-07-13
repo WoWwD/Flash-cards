@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../data/model/flash_card_model.dart';
 import '../../../services/constants/app_constants.dart';
-import '../../../services/validators/text_field_validator.dart';
+import '../../../services/text_field_validator.dart';
 import '../widgets/primary_scaffold_widget.dart';
 
 class SearchScreen extends StatefulWidget {

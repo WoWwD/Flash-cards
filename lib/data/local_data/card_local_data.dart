@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:flash_cards/data/interface/card_local_action.dart';
 import 'package:flash_cards/data/model/dictionary_model.dart';
-import 'package:flash_cards/services/interfaces/card_local_action.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/flash_card_model.dart';
 

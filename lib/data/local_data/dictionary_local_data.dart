@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:flash_cards/data/interface/dictionary_local_action_interface.dart';
 import 'package:flash_cards/data/model/dictionary_model.dart';
-import 'package:flash_cards/services/interfaces/dictionary_local_action_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/constants/app_constants.dart';
 

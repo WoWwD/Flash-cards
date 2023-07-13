@@ -1,6 +1,6 @@
 import 'package:flash_cards/data/local_data/dictionary_local_data.dart';
 import 'package:flash_cards/data/model/dictionary_model.dart';
-import 'package:flash_cards/services/interfaces/dictionary_local_action_interface.dart';
+import '../../../data/interface/dictionary_local_action_interface.dart';
 
 class DictionaryLocalRepository implements DictionaryLocalAction {
   final DictionaryLocalData dictionaryLocalData;

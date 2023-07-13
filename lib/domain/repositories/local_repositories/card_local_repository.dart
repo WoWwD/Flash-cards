@@ -1,5 +1,5 @@
+import 'package:flash_cards/data/interface/card_local_action.dart';
 import 'package:flash_cards/data/model/flash_card_model.dart';
-import 'package:flash_cards/services/interfaces/card_local_action.dart';
 import '../../../data/local_data/card_local_data.dart';
 
 class CardLocalRepository implements CardLocalAction {

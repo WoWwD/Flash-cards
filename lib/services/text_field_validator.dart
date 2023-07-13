@@ -1,5 +1,5 @@
-import 'package:flash_cards/services/extensions/string_extension.dart';
-import '../strings.dart';
+import 'package:flash_cards/services/string_extension.dart';
+import 'strings.dart';
 
 class TextFieldValidator {
   static String? get(String value) {
